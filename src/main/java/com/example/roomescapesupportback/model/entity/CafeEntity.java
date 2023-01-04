@@ -64,6 +64,6 @@ public class CafeEntity {
     private CafeDomainEntity cafeDomainEntity;
 
     @JsonIgnore
-    @OneToMany(targetEntity = ThemeEntity.class, fetch = FetchType.EAGER, mappedBy = "cafeEntity")
+    @OneToMany(targetEntity = ThemeEntity.class, fetch = FetchType.LAZY, mappedBy = "cafeEntity")
     private List<ThemeEntity> themeEntity;
 }

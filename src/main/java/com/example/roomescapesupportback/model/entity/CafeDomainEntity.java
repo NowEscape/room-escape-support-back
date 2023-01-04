@@ -21,7 +21,7 @@ public class CafeDomainEntity {
     private int cafeDomainId;
 
     @Column(name = "cafe_domain_name")
-    private String cafeDomain;
+    private String cafeDomainName;
 
     @Column(name = "url")
     private String url;

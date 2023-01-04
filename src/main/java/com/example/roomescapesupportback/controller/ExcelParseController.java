@@ -1,6 +1,6 @@
 package com.example.roomescapesupportback.controller;
 
-import com.example.roomescapesupportback.service.ExcelParseService;
+import com.example.roomescapesupportback.service.RoomEscapeExcelParseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ExcelParseController {
 
-    private final ExcelParseService excelParseService;
+    private final RoomEscapeExcelParseService roomEscapeExcelParseService;
 
     @GetMapping("/excel")
     public ResponseEntity<Boolean> excelParse() {
 
         try {
-            excelParseService.doParser();
+            roomEscapeExcelParseService.doParserRoomEscape();
         } catch (Exception e) {
             log.error("excelParse error", e);
             return ResponseEntity.internalServerError().build();
