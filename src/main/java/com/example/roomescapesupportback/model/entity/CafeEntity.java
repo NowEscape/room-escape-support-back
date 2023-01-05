@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -59,11 +60,21 @@ public class CafeEntity {
     @Column(name = "is_closed", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean isClosed;
 
-    @ManyToOne(targetEntity = CafeDomainEntity.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = CafeDomainEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_domain_id", nullable = false)
     private CafeDomainEntity cafeDomainEntity;
 
     @JsonIgnore
-    @OneToMany(targetEntity = ThemeEntity.class, fetch = FetchType.LAZY, mappedBy = "cafeEntity")
-    private List<ThemeEntity> themeEntity;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cafeEntity")
+    private List<ThemeEntity> themeEntityList = new ArrayList<>();
+
+    public void addThemeEntity(ThemeEntity themeEntity) {
+        themeEntity.setCafeEntity(this);
+        themeEntityList.add(themeEntity);
+    }
+
+    public void setCafeDomainEntity(CafeDomainEntity cafeDomainEntity) {
+        this.cafeDomainEntity = cafeDomainEntity;
+        cafeDomainEntity.getCafeEntityList().add(this);
+    }
 }

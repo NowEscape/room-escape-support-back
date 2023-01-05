@@ -14,10 +14,10 @@ public class CafeService {
     private final CafeRepository cafeRepository;
 
     public List<CafeEntity> getCafe() {
-        return cafeRepository.findAll();
+        return cafeRepository.findAllWithThemeAndTimeUsingJoin();
     }
 
     public CafeEntity getCafe(int id) {
-        return cafeRepository.findById(id).orElse(null);
+        return cafeRepository.findWithThemeAndTimeUsingJoinAndCafeIdEquals(id);
     }
 }

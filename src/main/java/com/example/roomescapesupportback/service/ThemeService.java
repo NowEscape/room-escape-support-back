@@ -13,11 +13,11 @@ public class ThemeService {
     private final ThemeRepository themeRepository;
 
     public List<ThemeEntity> getTheme() {
-        return themeRepository.findAll();
+        return themeRepository.findAllWithTimeUsingJoin();
     }
 
     public ThemeEntity getTheme(int id) {
-        return themeRepository.findById(id).orElse(null);
+        return themeRepository.findWithTimeUsingJoinAndThemeIdEquals(id);
     }
 
 }

@@ -1,10 +1,13 @@
 package com.example.roomescapesupportback.model.response;
 
 import com.example.roomescapesupportback.model.entity.CafeDomainEntity;
+import com.example.roomescapesupportback.model.entity.ThemeEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,4 +27,5 @@ public class CafeResponse {
     @JsonProperty("isClosed")
     private boolean isClosed;
     private CafeDomainEntity cafeDomainEntity;
+    private List<ThemeEntity> themeEntityList;
 }

@@ -1,9 +1,12 @@
 package com.example.roomescapesupportback.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "theme")
@@ -40,7 +43,20 @@ public class ThemeEntity {
     @Column(name = "is_closed", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean isClosed;
 
-    @ManyToOne(targetEntity = CafeEntity.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = CafeEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id")
     private CafeEntity cafeEntity;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "themeEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ThemeDateEntity> themeDateEntityList = new ArrayList<>();
+
+    public void addThemeDateEntity(ThemeDateEntity themeDateEntity) {
+        themeDateEntity.setThemeEntity(this);
+        themeDateEntityList.add(themeDateEntity);
+    }
+    public void setCafeEntity(CafeEntity cafeEntity) {
+        this.cafeEntity = cafeEntity;
+        cafeEntity.getThemeEntityList().add(this);
+    }
 }

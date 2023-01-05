@@ -14,6 +14,6 @@ public class CafeDomainService {
     private final CafeDomainRepository cafeDomainRepository;
     //get cafeDomain from repository
     public List<CafeDomainEntity> getCafeDomain() {
-        return cafeDomainRepository.findAll();
+        return cafeDomainRepository.findAllWithCafeAndThemeAndTimeUsingJoin();
     }
 }

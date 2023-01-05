@@ -1,10 +1,13 @@
 package com.example.roomescapesupportback.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cafe_domain")
@@ -37,4 +40,13 @@ public class CafeDomainEntity {
 
     @Column(name = "is_closed", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean isClosed;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cafeDomainEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CafeEntity> cafeEntityList = new ArrayList<>();
+
+    public void addCafeEntity(CafeEntity cafeEntity) {
+        cafeEntity.setCafeDomainEntity(this);
+        cafeEntityList.add(cafeEntity);
+    }
 }
