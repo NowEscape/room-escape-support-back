@@ -8,7 +8,12 @@ import java.util.List;
 
 public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
     @Query(value = "SELECT t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList")
+    public List<ThemeEntity> findAllWithTimeUsingLeftJoin();
+
+
+    @Query(value = "SELECT t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList")
     public List<ThemeEntity> findAllWithTimeUsingJoin();
+
 
     @Query(value = "SELECT t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList td WHERE t.themeId = :themeId")
     public ThemeEntity findWithTimeUsingJoinAndThemeIdEquals(int themeId);

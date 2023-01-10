@@ -1,6 +1,7 @@
 package com.example.roomescapesupportback.model.entity;
 
 
+import com.example.roomescapesupportback.model.DTO.Cafe;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class CafeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cafe_id", nullable = false, unique = true,  updatable = false, insertable = false, columnDefinition = "INT(11)")
+    @Column(name = "cafe_id", nullable = false, unique = true, updatable = false, insertable = false, columnDefinition = "INT(11)")
     private int cafeId;
 
     @Column(name = "cafe_name", nullable = false)
@@ -35,10 +36,10 @@ public class CafeEntity {
     @Column(name = "longitude")
     private String longitude;
 
-    @Column(name ="region_1", columnDefinition = "varchar(255) comment '시/도'")
+    @Column(name = "region_1", columnDefinition = "varchar(255) comment '시/도'")
     private String region1;
 
-    @Column(name ="region2", columnDefinition = "varchar(255) comment '시/군/구'")
+    @Column(name = "region2", columnDefinition = "varchar(255) comment '시/군/구'")
     private String region2;
 
     @Column(name = "phone_number")
@@ -46,6 +47,9 @@ public class CafeEntity {
 
     @Column(name = "cafe_description")
     private String cafeDescription;
+
+    @Column(name = "shot_cut_url")
+    private String shotCutUrl;
 
 
     @Column(name = "cafe_image_url")
@@ -76,5 +80,16 @@ public class CafeEntity {
     public void setCafeDomainEntity(CafeDomainEntity cafeDomainEntity) {
         this.cafeDomainEntity = cafeDomainEntity;
         cafeDomainEntity.getCafeEntityList().add(this);
+    }
+
+    public Cafe toDto() {
+        return Cafe.builder()
+                .cafeName(cafeName)
+                .cafeImageUrl(cafeImageUrl)
+                .address(address)
+                .phoneNumber(phoneNumber)
+                .cafeDescription(cafeDescription)
+                .shotCutUrl(shotCutUrl)
+                .build();
     }
 }

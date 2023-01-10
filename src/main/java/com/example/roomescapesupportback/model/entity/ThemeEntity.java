@@ -1,5 +1,6 @@
 package com.example.roomescapesupportback.model.entity;
 
+import com.example.roomescapesupportback.model.DTO.Theme;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -55,8 +56,21 @@ public class ThemeEntity {
         themeDateEntity.setThemeEntity(this);
         themeDateEntityList.add(themeDateEntity);
     }
+
     public void setCafeEntity(CafeEntity cafeEntity) {
         this.cafeEntity = cafeEntity;
         cafeEntity.getThemeEntityList().add(this);
+    }
+
+    public Theme toDto() {
+        return Theme.builder()
+                .themeId(themeId)
+                .themeName(themeName)
+                .themeDescription(themeDescription)
+                .themeImageUrl(themeImageUrl)
+                .themeOpenDate(themeOpenDate)
+                .createdDate(createdDate)
+                .updatedDate(updatedDate)
+                .build();
     }
 }

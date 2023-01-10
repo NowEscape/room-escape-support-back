@@ -1,4 +1,4 @@
-package com.example.roomescapesupportback.model.response;
+package com.example.roomescapesupportback.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CafeDomainResponse {
+public class CafeDomain {
     private int cafeDomainId;
     private String cafeDomain;
     private String url;
