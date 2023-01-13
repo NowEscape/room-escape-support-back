@@ -1,6 +1,5 @@
 package com.example.roomescapesupportback.repository;
 
-import com.example.roomescapesupportback.model.entity.CafeDomainEntity;
 import com.example.roomescapesupportback.model.entity.CafeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

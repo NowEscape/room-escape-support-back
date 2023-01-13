@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "theme")
@@ -48,6 +49,10 @@ public class ThemeEntity {
     @JoinColumn(name = "cafe_id")
     private CafeEntity cafeEntity;
 
+    @ManyToOne(targetEntity = GenreEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id", nullable = true)
+    private GenreEntity genreEntity;
+
     @JsonIgnore
     @OneToMany(mappedBy = "themeEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ThemeDateEntity> themeDateEntityList = new ArrayList<>();
@@ -62,15 +67,20 @@ public class ThemeEntity {
         cafeEntity.getThemeEntityList().add(this);
     }
 
+    public void setGenreEntity(GenreEntity genreEntity) {
+        this.genreEntity = genreEntity;
+        genreEntity.getThemeEntityList().add(this);
+    }
+
     public Theme toDto() {
         return Theme.builder()
-                .themeId(themeId)
                 .themeName(themeName)
                 .themeDescription(themeDescription)
                 .themeImageUrl(themeImageUrl)
                 .themeOpenDate(themeOpenDate)
                 .createdDate(createdDate)
                 .updatedDate(updatedDate)
+                .genre(Optional.ofNullable(genreEntity).orElseGet(GenreEntity::new).toDto())
                 .build();
     }
 }

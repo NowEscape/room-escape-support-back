@@ -30,6 +30,7 @@ public class ThemeService {
                                 .ThemeDateList(themeEntity.getThemeDateEntityList().stream()
                                         .map(ThemeDateEntity::toDto)
                                         .toList())
+                                .cafeName(themeEntity.getCafeEntity().getCafeName())
                                 .build()
                 ).toList();
     }
@@ -42,7 +43,7 @@ public class ThemeService {
                                 .ThemeDateList(themeEntity.getThemeDateEntityList().stream()
                                         .map(ThemeDateEntity::toDto)
                                         .toList())
-                                .cafeId(themeEntity.getCafeEntity().getCafeId())
+                                .cafeName(themeEntity.getCafeEntity().getCafeName())
                                 .build()
                 ).toList();
     }

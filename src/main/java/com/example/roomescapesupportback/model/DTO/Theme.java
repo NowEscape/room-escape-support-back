@@ -12,11 +12,11 @@ import java.time.ZonedDateTime;
 @ToString
 @Builder
 public class Theme {
-    private int themeId;
     private String themeName;
     private String themeDescription;
     private String themeImageUrl;
     private ZonedDateTime createdDate;
     private ZonedDateTime updatedDate;
     private ZonedDateTime themeOpenDate;
+    private Genre genre;
 }

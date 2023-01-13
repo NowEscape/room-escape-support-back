@@ -12,7 +12,7 @@ import java.util.List;
 @ToString
 @Builder
 public class ThemeWithDate {
-    private int cafeId;
+    private String cafeName;
     private Theme theme;
     private List<ThemeDate> ThemeDateList;
 }
