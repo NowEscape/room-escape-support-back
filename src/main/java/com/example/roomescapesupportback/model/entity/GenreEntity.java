@@ -21,8 +21,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "genre", indexes = {
-    @Index(name = "genre_index1", columnList = "genre_name", unique = true),
-    @Index(name = "genre_index2", columnList = "theme_id")
+    @Index(name = "genre_index1", columnList = "genre_name", unique = true)
 })
 @Setter
 @Getter
