@@ -10,11 +10,12 @@ import lombok.ToString;
 @ToString
 @Builder
 public class Cafe {
-    private int cafeId;
-    private String cafeName;
-    private String address;
-    private String phoneNumber;
-    private String cafeImageUrl;
-    private String cafeDescription;
-    private String shotCutUrl;
+
+  private int cafeId;
+  private String cafeName;
+  private String address;
+  private String phoneNumber;
+  private String cafeImageUrl;
+  private String cafeDescription;
+  private String shotCutUrl;
 }

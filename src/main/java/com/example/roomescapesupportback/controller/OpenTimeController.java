@@ -1,27 +1,30 @@
 package com.example.roomescapesupportback.controller;
 
+import com.example.roomescapesupportback.model.DTO.FilterOption;
 import com.example.roomescapesupportback.model.DTO.ThemeWithDate;
 import com.example.roomescapesupportback.service.ThemeService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class OpenTimeController {
-    private final ThemeService themeService;
+
+  private final ThemeService themeService;
 
 
-    @GetMapping("/openTimeThemeList")
-    public ResponseEntity<List<ThemeWithDate>> getOpenTimeThemeList() {
-        return ResponseEntity.ok(themeService.getThemeOpenTimeList());
-    }
+  @GetMapping(name = "/openTimeThemeList", produces = "application/json")
+  public ResponseEntity<List<ThemeWithDate>> getOpenTimeThemeList(
+      @RequestBody FilterOption filterOption) {
+    return ResponseEntity.ok(themeService.getThemeOpenTimeList(filterOption));
+  }
 
-    @GetMapping("/allThemeList")
-    public ResponseEntity<List<ThemeWithDate>> getAllThemeList() {
-        return ResponseEntity.ok(themeService.getThemeOpenTimeListUsingLeftJoin());
-    }
+  @GetMapping("/allThemeList")
+  public ResponseEntity<List<ThemeWithDate>> getAllThemeList() {
+    return ResponseEntity.ok(themeService.getThemeOpenTimeListUsingLeftJoin());
+  }
 }

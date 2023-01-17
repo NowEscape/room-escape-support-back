@@ -1,6 +1,10 @@
 package com.example.roomescapesupportback.model.DTO;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -8,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Genre {
-    private Integer genreId;
-    private String genreName;
+
+  private Integer genreId;
+  private String genreName;
 }

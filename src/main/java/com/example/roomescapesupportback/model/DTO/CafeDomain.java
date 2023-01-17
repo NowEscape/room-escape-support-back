@@ -9,13 +9,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CafeDomain {
-    private int cafeDomainId;
-    private String cafeDomain;
-    private String url;
-    private String thumbnailUrl;
-    private String createdDate;
-    private String updatedDate;
 
-    @JsonProperty("isClosed")
-    private boolean isClosed;
+  private int cafeDomainId;
+  private String cafeDomain;
+  private String url;
+  private String thumbnailUrl;
+  private String createdDate;
+  private String updatedDate;
+
+  @JsonProperty("isClosed")
+  private boolean isClosed;
 }

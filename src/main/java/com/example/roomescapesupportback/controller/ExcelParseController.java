@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ExcelParseController {
 
-    private final RoomEscapeExcelParseService roomEscapeExcelParseService;
+  private final RoomEscapeExcelParseService roomEscapeExcelParseService;
 
-    @GetMapping("/excel")
-    public ResponseEntity<Boolean> excelParse() {
+  @GetMapping("/excel")
+  public ResponseEntity<Boolean> excelParse() {
 
-        try {
-            roomEscapeExcelParseService.doParserRoomEscape();
-        } catch (Exception e) {
-            log.error("excelParse error", e);
-            return ResponseEntity.internalServerError().build();
-        }
-
-        return ResponseEntity.ok(Boolean.TRUE);
+    try {
+      roomEscapeExcelParseService.doParserRoomEscape();
+    } catch (Exception e) {
+      log.error("excelParse error", e);
+      return ResponseEntity.internalServerError().build();
     }
+
+    return ResponseEntity.ok(Boolean.TRUE);
+  }
 }
