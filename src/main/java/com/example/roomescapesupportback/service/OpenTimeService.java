@@ -7,8 +7,6 @@ import com.example.roomescapesupportback.repository.GenreRepository;
 import com.example.roomescapesupportback.repository.ThemeDateRepository;
 import com.example.roomescapesupportback.repository.ThemeRepository;
 import com.example.roomescapesupportback.util.ListCustomUtil;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -44,8 +42,9 @@ public class OpenTimeService {
 
     var themeIdList = filterThemeIdList(filterOption);
 
-    return themeRepository.findAllWithTimeUsingJoin(themeIdList).stream()
-        .map(ThemeWithDate::from).toList();
+    var result = themeRepository.findAllWithTimeUsingJoin(themeIdList);
+
+    return result.stream().map(ThemeWithDate::from).toList();
   }
 
   public List<Integer> filterThemeIdList(FilterOption filterOption) {
@@ -58,29 +57,32 @@ public class OpenTimeService {
                   filterOption.getRegion2())
               : cafeRepository.findThemeIdByRegion(filterOption.getRegion1());
 
-      ListCustomUtil.intersectionIgnoreEmpty(themeIdList, themeIdListByRegion);
+      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
+          themeIdListByRegion);
     }
 
     if (StringUtils.isNotBlank(filterOption.getGenreName())) {
       var themeIdListByGenre = genreRepository.findThemeIdListByGenre(filterOption.getGenreName());
-      ListCustomUtil.intersectionIgnoreEmpty(themeIdList, themeIdListByGenre);
+      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
+          themeIdListByGenre);
     }
 
     if (StringUtils.isNotBlank(filterOption.getSearchWord())) {
       var themeIdListBySearchWord = searchWordService.findThemeIdListBySearchWord(
           filterOption.getSearchWord());
-      ListCustomUtil.intersectionIgnoreEmpty(themeIdList, themeIdListBySearchWord);
+      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
+          themeIdListBySearchWord);
     }
 
-    if (ObjectUtils.isNotEmpty(filterOption.getThemeTime())) {
-      var themeIdListByOpenTime = themeDateRepository.findThemeIdListByThemeTime(
-          ZonedDateTime.now()
-              .isBefore(filterOption.getThemeTime().withZoneSameLocal(ZoneId.of("UTC")))
-              ? filterOption.getThemeTime()
-              : ZonedDateTime.now(),
-          filterOption.getThemeTime().withHour(23).withMinute(59).withSecond(59));
-      ListCustomUtil.intersectionIgnoreEmpty(themeIdList, themeIdListByOpenTime);
-    }
+//    if (ObjectUtils.isNotEmpty(filterOption.getThemeTime())) {
+//      var themeIdListByOpenTime = themeDateRepository.findThemeIdListByThemeTime(
+//          ZonedDateTime.now()
+//              .isBefore(filterOption.getThemeTime().withZoneSameLocal(ZoneId.of("UTC")))
+//              ? filterOption.getThemeTime()
+//              : ZonedDateTime.now(),
+//          filterOption.getThemeTime().withHour(23).withMinute(59).withSecond(59));
+//      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList, themeIdListByOpenTime);
+//    }
 
     return themeIdList.stream().toList();
   }

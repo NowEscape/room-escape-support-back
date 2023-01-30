@@ -78,7 +78,7 @@ public class CafeEntity {
   private ZonedDateTime updatedDate;
 
   @Column(name = "is_closed", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
-  private boolean isClosed;
+  private Boolean isClosed;
 
   @ManyToOne(targetEntity = CafeDomainEntity.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "cafe_domain_id", nullable = false)

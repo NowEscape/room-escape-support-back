@@ -12,14 +12,14 @@ public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
   public List<ThemeEntity> findAllWithTimeUsingLeftJoin();
 
 
-  @Query(value = "SELECT t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity")
+  @Query(value = "SELECT distinct t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity")
   public List<ThemeEntity> findAllWithTimeUsingJoin();
 
-  @Query(value = "SELECT t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity WHERE t.themeId IN :themeIdList")
+  @Query(value = "SELECT distinct t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity WHERE t.themeId IN :themeIdList")
   public List<ThemeEntity> findAllWithTimeUsingJoin(List<Integer> themeIdList);
 
 
-  @Query(value = "SELECT t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList td LEFT JOIN FETCH t.genreEntity WHERE t.themeId = :themeId")
+  @Query(value = "SELECT distinct t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList td LEFT JOIN FETCH t.genreEntity WHERE t.themeId = :themeId")
   public ThemeEntity findWithTimeUsingJoinAndThemeIdEquals(int themeId);
 
   public List<Integer> findByThemeNameContaining(String themeName);

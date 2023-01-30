@@ -34,7 +34,7 @@ public class ThemeDateEntity {
   private ZonedDateTime themeTime;
 
   @Column(name = "isOpen")
-  private boolean isOpen;
+  private Boolean isOpen;
 
   @Column(name = "last_update_date", nullable = false, updatable = true, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private ZonedDateTime lastUpdateDate;

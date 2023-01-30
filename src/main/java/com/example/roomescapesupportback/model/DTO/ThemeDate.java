@@ -15,5 +15,5 @@ public class ThemeDate {
   private int themeDateId;
   private ZonedDateTime themeTime;
 
-  private boolean isOpen;
+  private Boolean isOpen;
 }

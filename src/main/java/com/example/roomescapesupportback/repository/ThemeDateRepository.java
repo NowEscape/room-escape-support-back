@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ThemeDateRepository extends JpaRepository<ThemeDateEntity, Integer> {
 
-  @Query(value = "SELECT t.themeId FROM ThemeDateEntity td JOIN td.themeEntity t WHERE td.themeTime BETWEEN :themeTimeStart AND :themeTimeEnd AND td.isOpen = true")
+  @Query(value = "SELECT t.themeId FROM ThemeDateEntity td JOIN td.themeEntity t WHERE (td.themeTime BETWEEN :themeTimeStart AND :themeTimeEnd) AND td.isOpen = true")
   public List<Integer> findThemeIdListByThemeTime(ZonedDateTime themeTimeStart,
       ZonedDateTime themeTimeEnd);
 }

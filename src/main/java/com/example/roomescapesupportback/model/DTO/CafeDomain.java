@@ -18,5 +18,5 @@ public class CafeDomain {
   private String updatedDate;
 
   @JsonProperty("isClosed")
-  private boolean isClosed;
+  private Boolean isClosed;
 }
