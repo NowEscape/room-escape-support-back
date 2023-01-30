@@ -33,6 +33,9 @@ public class ThemeDateEntity {
   @Column(name = "theme_time")
   private ZonedDateTime themeTime;
 
+  @Column(name = "isOpen")
+  private boolean isOpen;
+
   @Column(name = "last_update_date", nullable = false, updatable = true, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private ZonedDateTime lastUpdateDate;
 
@@ -45,6 +48,7 @@ public class ThemeDateEntity {
     return ThemeDate.builder()
         .themeDateId(themeDateId)
         .themeTime(themeTime)
+        .isOpen(isOpen)
         .build();
   }
 
