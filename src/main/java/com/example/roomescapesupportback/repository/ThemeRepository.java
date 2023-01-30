@@ -21,4 +21,6 @@ public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
 
   @Query(value = "SELECT t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList td LEFT JOIN FETCH t.genreEntity WHERE t.themeId = :themeId")
   public ThemeEntity findWithTimeUsingJoinAndThemeIdEquals(int themeId);
+
+  public List<Integer> findByThemeNameContaining(String themeName);
 }
