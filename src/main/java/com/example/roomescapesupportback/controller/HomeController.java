@@ -1,5 +1,6 @@
 package com.example.roomescapesupportback.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
   @GetMapping("/")
-  public String home() {
-    return "Hello, World!";
+  public ResponseEntity<String> home() {
+    return ResponseEntity.badRequest().build();
   }
 }
