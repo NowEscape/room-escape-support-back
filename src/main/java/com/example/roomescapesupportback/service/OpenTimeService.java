@@ -7,6 +7,8 @@ import com.example.roomescapesupportback.repository.GenreRepository;
 import com.example.roomescapesupportback.repository.ThemeDateRepository;
 import com.example.roomescapesupportback.repository.ThemeRepository;
 import com.example.roomescapesupportback.util.ListCustomUtil;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +33,11 @@ public class OpenTimeService {
   }
 
   public List<ThemeWithDate> getThemeOpenTimeListWithoutFilter() {
+    var defaultFilterOption = new FilterOption();
 
-    var themeIdList = filterThemeIdList(new FilterOption());
+    var themeIdList = filterThemeIdList(defaultFilterOption);
 
-    return themeRepository.findAllWithTimeUsingJoin(themeIdList).stream()
+    return themeRepository.findAllWithTimeUsingJoin(themeIdList, defaultFilterOption.getThemeTime()).stream()
         .map(ThemeWithDate::from).toList();
   }
 
@@ -42,7 +45,7 @@ public class OpenTimeService {
 
     var themeIdList = filterThemeIdList(filterOption);
 
-    var result = themeRepository.findAllWithTimeUsingJoin(themeIdList);
+    var result = themeRepository.findAllWithTimeUsingJoin(themeIdList, filterOption.getThemeTime());
 
     return result.stream().map(ThemeWithDate::from).toList();
   }
@@ -74,15 +77,15 @@ public class OpenTimeService {
           themeIdListBySearchWord);
     }
 
-//    if (ObjectUtils.isNotEmpty(filterOption.getThemeTime())) {
-//      var themeIdListByOpenTime = themeDateRepository.findThemeIdListByThemeTime(
-//          ZonedDateTime.now()
-//              .isBefore(filterOption.getThemeTime().withZoneSameLocal(ZoneId.of("UTC")))
-//              ? filterOption.getThemeTime()
-//              : ZonedDateTime.now(),
-//          filterOption.getThemeTime().withHour(23).withMinute(59).withSecond(59));
-//      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList, themeIdListByOpenTime);
-//    }
+    if (ObjectUtils.isNotEmpty(filterOption.getThemeTime())) {
+      var themeIdListByOpenTime = themeDateRepository.findThemeIdListByThemeTime(
+          ZonedDateTime.now()
+              .isBefore(filterOption.getThemeTime().withZoneSameLocal(ZoneId.of("Asia/Seoul")))
+              ? filterOption.getThemeTime()
+              : ZonedDateTime.now(),
+          filterOption.getThemeTime().withHour(23).withMinute(59).withSecond(59));
+      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList, themeIdListByOpenTime);
+    }
 
     return themeIdList.stream().toList();
   }

@@ -13,7 +13,7 @@ public class DBConfig {
   @Bean
   public DataSource dataSource() {
     return DataSourceBuilder.create().url(
-            "jdbc:mysql://localhost:3306/test?serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false")
+            "jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false")
         .username("root")
         .password("test123")
         .driverClassName("com.mysql.cj.jdbc.Driver")

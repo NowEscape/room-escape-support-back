@@ -17,6 +17,6 @@ public class ThemeService {
   }
 
   public ThemeEntity getTheme(int id) {
-    return themeRepository.findWithTimeUsingJoinAndThemeIdEquals(id);
+    return themeRepository.findWithTimeUsingJoinAndThemeIdEqualsAndThemeTimeInNowDate(id);
   }
 }
