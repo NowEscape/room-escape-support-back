@@ -12,19 +12,15 @@ public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
   public List<ThemeEntity> findAllWithTimeUsingLeftJoin();
 
 
-  @Query(value = "SELECT t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity")
+  @Query(value = "SELECT distinct t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity")
   public List<ThemeEntity> findAllWithTimeUsingJoin();
 
-  @Query(value = "SELECT t.themeId FROM ThemeEntity t JOIN FETCH t.cafeEntity c WHERE c.region1 = :region1 AND c.region2 = :region2")
-  public List<Integer> findThemeIdListByRegion(String region1, String region2);
+  @Query(value = "SELECT distinct t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity WHERE t.themeId IN :themeIdList")
+  public List<ThemeEntity> findAllWithTimeUsingJoin(List<Integer> themeIdList);
 
-  @Query(value = "SELECT t.themeId FROM ThemeEntity t JOIN FETCH t.genreEntity g WHERE g.genreName = :genreName")
-  public List<Integer> findThemeIdListByGenre(String genreName);
 
-  @Query(value = "SELECT t.themeId FROM ThemeEntity t JOIN FETCH t.themeDateEntityList td WHERE td.themeTime >= :themeTimeStart AND td.themeTime <= :themeTimeEnd")
-  public List<Integer> findThemeIdListByThemeTimeBetween(ZonedDateTime themeTimeStart,
-      ZonedDateTime themeTimeEnd);
-
-  @Query(value = "SELECT t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList td LEFT JOIN FETCH t.genreEntity WHERE t.themeId = :themeId")
+  @Query(value = "SELECT distinct t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList td LEFT JOIN FETCH t.genreEntity WHERE t.themeId = :themeId")
   public ThemeEntity findWithTimeUsingJoinAndThemeIdEquals(int themeId);
+
+  public List<Integer> findByThemeNameContaining(String themeName);
 }

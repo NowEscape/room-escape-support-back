@@ -26,8 +26,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "cafe", indexes = {@Index(name = "cafe_index1", columnList = "cafe_name"),
-    @Index(name = "cafe_index2", columnList = "theme_id"),
-    @Index(name = "cafe_index3", columnList = "region1, region2")})
+    @Index(name = "cafe_index2", columnList = "region1, region2")})
 @Getter
 @Setter
 @ToString
@@ -53,7 +52,7 @@ public class CafeEntity {
   @Column(name = "longitude")
   private String longitude;
 
-  @Column(name = "region_1", columnDefinition = "varchar(255) comment '시/도'")
+  @Column(name = "region1", columnDefinition = "varchar(255) comment '시/도'")
   private String region1;
 
   @Column(name = "region2", columnDefinition = "varchar(255) comment '시/군/구'")
@@ -79,7 +78,7 @@ public class CafeEntity {
   private ZonedDateTime updatedDate;
 
   @Column(name = "is_closed", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
-  private boolean isClosed;
+  private Boolean isClosed;
 
   @ManyToOne(targetEntity = CafeDomainEntity.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "cafe_domain_id", nullable = false)

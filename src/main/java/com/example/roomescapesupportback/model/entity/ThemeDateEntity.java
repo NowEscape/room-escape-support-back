@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "theme_date", indexes = {
-    @Index(name = "theme_date_index1", columnList = "theme_id", unique = true),
+    @Index(name = "theme_date_index1", columnList = "theme_id"),
     @Index(name = "theme_date_index2", columnList = "theme_time,last_update_date")
 })
 @Getter
@@ -33,6 +33,9 @@ public class ThemeDateEntity {
   @Column(name = "theme_time")
   private ZonedDateTime themeTime;
 
+  @Column(name = "isOpen")
+  private Boolean isOpen;
+
   @Column(name = "last_update_date", nullable = false, updatable = true, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private ZonedDateTime lastUpdateDate;
 
@@ -45,6 +48,7 @@ public class ThemeDateEntity {
     return ThemeDate.builder()
         .themeDateId(themeDateId)
         .themeTime(themeTime)
+        .isOpen(isOpen)
         .build();
   }
 

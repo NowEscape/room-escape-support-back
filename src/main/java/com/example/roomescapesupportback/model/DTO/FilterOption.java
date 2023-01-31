@@ -11,6 +11,6 @@ public class FilterOption {
   private String region1;
   private String region2;
   private String genreName;
-  private ZonedDateTime themeTime;
+  private ZonedDateTime themeTime = ZonedDateTime.now();
   private String searchWord;
 }
