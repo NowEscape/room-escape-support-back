@@ -99,6 +99,7 @@ public class RoomEscapeExcelParseService {
         themeEntityList.add(
             ThemeEntity.builder()
                 .themeName(meta.getThemeName())
+                .isClosed(false)
                 .cafeEntity(cafeEntityList.stream().filter(cafe ->
                     cafe.getCafeDomainEntity().getCafeDomainName().equals(meta.getDomainName())
                         && cafe.getCafeName().equals(meta.getCafeName())).findFirst().get())
