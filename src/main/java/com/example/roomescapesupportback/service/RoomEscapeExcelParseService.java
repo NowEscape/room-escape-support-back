@@ -66,7 +66,7 @@ public class RoomEscapeExcelParseService {
       if (domainEntityList.stream().map(CafeDomainEntity::getCafeDomainName)
           .noneMatch(domain -> domain.equals(meta.getDomainName()))) {
         domainEntityList.add(
-            CafeDomainEntity.builder().cafeDomainName(meta.getDomainName()).build());
+            CafeDomainEntity.builder().cafeDomainName(meta.getDomainName()).isClosed(false).build());
       }
     });
 
@@ -80,6 +80,7 @@ public class RoomEscapeExcelParseService {
         cafeEntityList.add(
             CafeEntity.builder()
                 .cafeName(meta.getCafeName())
+                .isClosed(false)
                 .cafeDomainEntity(domainEntityList.stream()
                     .filter(domain -> domain.getCafeDomainName().equals(meta.getDomainName()))
                     .findFirst().orElse(null))
