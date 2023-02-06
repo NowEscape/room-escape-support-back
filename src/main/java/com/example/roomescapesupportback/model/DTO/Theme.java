@@ -17,6 +17,5 @@ public class Theme {
   private String themeImageUrl;
   private ZonedDateTime createdDate;
   private ZonedDateTime updatedDate;
-  private ZonedDateTime themeOpenDate;
   private Genre genre;
 }

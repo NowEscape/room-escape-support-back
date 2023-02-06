@@ -97,7 +97,6 @@ public class ThemeEntity {
         .themeName(themeName)
         .themeDescription(themeDescription)
         .themeImageUrl(themeImageUrl)
-        .themeOpenDate(themeOpenDate)
         .createdDate(createdDate)
         .updatedDate(updatedDate)
         .genre(Optional.ofNullable(genreEntity).orElseGet(GenreEntity::new).toDto())
