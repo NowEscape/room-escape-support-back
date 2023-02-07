@@ -49,7 +49,6 @@ public class ThemeDateEntity {
 
   public ThemeDate toDto() {
     return ThemeDate.builder()
-        .themeDateId(themeDateId)
         .themeTime(themeTime)
         .isOpen(isOpen)
         .build();
