@@ -48,7 +48,6 @@ public class GenreEntity {
 
   public Genre toDto() {
     return Genre.builder()
-        .genreId(genreId)
         .genreName(genreName)
         .build();
   }
