@@ -12,8 +12,6 @@ import lombok.ToString;
 @ToString
 @Builder
 public class ThemeDate {
-
-  private int themeDateId;
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime themeTime;
 

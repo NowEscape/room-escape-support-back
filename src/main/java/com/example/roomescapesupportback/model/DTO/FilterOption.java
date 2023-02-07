@@ -17,7 +17,6 @@ public class FilterOption {
   private String genreName;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-
   private LocalDateTime themeTime = LocalDateTime.now();
   private String searchWord;
 }
