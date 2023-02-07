@@ -1,6 +1,7 @@
 package com.example.roomescapesupportback.model.DTO;
 
-import java.time.ZonedDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,8 @@ import lombok.ToString;
 public class ThemeDate {
 
   private int themeDateId;
-  private ZonedDateTime themeTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+  private LocalDateTime themeTime;
 
   private Boolean isOpen;
 }

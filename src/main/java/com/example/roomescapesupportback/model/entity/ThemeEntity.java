@@ -2,7 +2,7 @@ package com.example.roomescapesupportback.model.entity;
 
 import com.example.roomescapesupportback.model.DTO.Theme;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,13 +54,13 @@ public class ThemeEntity {
   private String themeImageUrl;
 
   @Column(name = "theme_open_date", columnDefinition = "TIMESTAMP comment '테마 오픈일'")
-  private ZonedDateTime themeOpenDate;
+  private LocalDateTime themeOpenDate;
 
   @Column(name = "created_date", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-  private ZonedDateTime createdDate;
+  private LocalDateTime createdDate;
 
   @Column(name = "updated_date", nullable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-  private ZonedDateTime updatedDate;
+  private LocalDateTime updatedDate;
 
   @Column(name = "is_closed", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
   private Boolean isClosed;

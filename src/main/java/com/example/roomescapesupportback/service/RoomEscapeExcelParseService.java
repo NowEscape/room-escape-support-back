@@ -81,6 +81,8 @@ public class RoomEscapeExcelParseService {
             CafeEntity.builder()
                 .cafeName(meta.getCafeName())
                 .isClosed(false)
+                .region1(meta.getRegion1())
+                .region2(meta.getRegion2())
                 .cafeDomainEntity(domainEntityList.stream()
                     .filter(domain -> domain.getCafeDomainName().equals(meta.getDomainName()))
                     .findFirst().orElse(null))

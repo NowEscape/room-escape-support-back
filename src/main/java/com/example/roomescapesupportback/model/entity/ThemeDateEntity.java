@@ -1,7 +1,7 @@
 package com.example.roomescapesupportback.model.entity;
 
 import com.example.roomescapesupportback.model.DTO.ThemeDate;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,13 +34,13 @@ public class ThemeDateEntity {
   private ThemeEntity themeEntity;
 
   @Column(name = "theme_time")
-  private ZonedDateTime themeTime;
+  private LocalDateTime themeTime;
 
   @Column(name = "isOpen")
   private Boolean isOpen;
 
   @Column(name = "last_update_date", nullable = false, updatable = true, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-  private ZonedDateTime lastUpdateDate;
+  private LocalDateTime lastUpdateDate;
 
   public void setThemeEntity(ThemeEntity themeEntity) {
     this.themeEntity = themeEntity;

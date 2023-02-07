@@ -1,6 +1,6 @@
 package com.example.roomescapesupportback.model.DTO;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ public class Theme {
   private String themeName;
   private String themeDescription;
   private String themeImageUrl;
-  private ZonedDateTime createdDate;
-  private ZonedDateTime updatedDate;
+  private LocalDateTime createdDate;
+  private LocalDateTime updatedDate;
   private Genre genre;
 }

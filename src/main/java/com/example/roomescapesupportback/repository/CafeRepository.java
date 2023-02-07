@@ -22,6 +22,8 @@ public interface CafeRepository extends JpaRepository<CafeEntity, Integer> {
   @Query(value = "SELECT t.themeId FROM CafeEntity c JOIN c.themeEntityList t WHERE c.region1 = :region1 AND c.region2 = :region2")
   public List<Integer> findThemeIdByRegion(String region1, String region2);
 
-  public List<Integer> findByCafeNameContaining(String cafeName);
+  @Query(value = "SELECT t.themeId FROM CafeEntity c JOIN c.themeEntityList t WHERE c.cafeName like :cafeName")
+
+  public List<Integer> findThemeIdByCafeNameLike(String cafeName);
 
 }

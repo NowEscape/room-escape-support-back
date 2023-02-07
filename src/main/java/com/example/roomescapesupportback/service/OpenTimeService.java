@@ -8,7 +8,7 @@ import com.example.roomescapesupportback.repository.ThemeDateRepository;
 import com.example.roomescapesupportback.repository.ThemeRepository;
 import com.example.roomescapesupportback.util.ListCustomUtil;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -78,13 +78,15 @@ public class OpenTimeService {
     }
 
     if (ObjectUtils.isNotEmpty(filterOption.getThemeTime())) {
+      var themeTimeLdt = filterOption.getThemeTime();
       var themeIdListByOpenTime = themeDateRepository.findThemeIdListByThemeTime(
-          ZonedDateTime.now()
-              .isBefore(filterOption.getThemeTime().withZoneSameLocal(ZoneId.of("Asia/Seoul")))
-              ? filterOption.getThemeTime()
-              : ZonedDateTime.now(),
-          filterOption.getThemeTime().withHour(23).withMinute(59).withSecond(59));
-      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList, themeIdListByOpenTime);
+          LocalDateTime.now()
+              .isBefore(themeTimeLdt)
+              ? themeTimeLdt
+              : LocalDateTime.now(),
+          themeTimeLdt.withHour(23).withMinute(59).withSecond(59));
+      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
+          themeIdListByOpenTime);
     }
 
     return themeIdList.stream().toList();
