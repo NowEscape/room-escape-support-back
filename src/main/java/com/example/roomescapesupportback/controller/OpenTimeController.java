@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,7 @@ public class OpenTimeController {
   private final OpenTimeService openTimeService;
 
 
-  @GetMapping(value = "/openTimeThemeList", produces = "application/json")
+  @PostMapping(value = "/openTimeThemeList", produces = "application/json")
   public ResponseEntity<List<ThemeWithDate>> getOpenTimeThemeList(
       @RequestBody @Nullable FilterOption filterOption) {
     return ResponseEntity.ok(openTimeService.getThemeOpenTimeList(filterOption));
