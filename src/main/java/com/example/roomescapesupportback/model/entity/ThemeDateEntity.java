@@ -18,7 +18,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "theme_date", indexes = {
     @Index(name = "theme_date_index1", columnList = "theme_id"),
-    @Index(name = "theme_date_index2", columnList = "theme_time,last_update_date")
+    @Index(name = "theme_date_index2", columnList = "theme_time,theme_id", unique = true)
 })
 @Getter
 @Setter
