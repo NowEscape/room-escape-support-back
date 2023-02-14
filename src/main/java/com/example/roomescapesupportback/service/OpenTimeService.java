@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -59,12 +60,21 @@ public class OpenTimeService {
                   filterOption.getRegion2())
               : cafeRepository.findThemeIdByRegion(filterOption.getRegion1());
 
+      if(CollectionUtils.isEmpty(themeIdListByRegion)){
+        return List.of();
+      }
+
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByRegion);
     }
 
     if (StringUtils.isNotBlank(filterOption.getGenreName())) {
       var themeIdListByGenre = genreRepository.findThemeIdListByGenre(filterOption.getGenreName());
+
+      if(CollectionUtils.isEmpty(themeIdListByGenre)){
+        return List.of();
+      }
+
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByGenre);
     }
@@ -72,6 +82,11 @@ public class OpenTimeService {
     if (StringUtils.isNotBlank(filterOption.getSearchWord())) {
       var themeIdListBySearchWord = searchWordService.findThemeIdListBySearchWord(
           filterOption.getSearchWord());
+
+      if(CollectionUtils.isEmpty(themeIdListBySearchWord)){
+        return List.of();
+      }
+
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListBySearchWord);
     }
@@ -84,6 +99,11 @@ public class OpenTimeService {
               ? themeTimeLdt
               : LocalDateTime.now(),
           themeTimeLdt.withHour(23).withMinute(59).withSecond(59));
+
+      if(CollectionUtils.isEmpty(themeIdListByOpenTime)){
+        return List.of();
+      }
+
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByOpenTime);
     }
