@@ -15,16 +15,18 @@ import lombok.ToString;
 public class ThemeWithDate {
 
   private String cafeName;
+  private String shotCutUrl;
   private Theme theme;
-  private List<ThemeDate> ThemeDateList;
+  private List<ThemeDate> themeDateList;
 
   public static ThemeWithDate from(ThemeEntity themeEntity) {
     return ThemeWithDate.builder()
         .theme(themeEntity.toDto())
-        .ThemeDateList(themeEntity.getThemeDateEntityList().stream()
+        .themeDateList(themeEntity.getThemeDateEntityList().stream()
             .map(ThemeDateEntity::toDto)
             .toList())
         .cafeName(themeEntity.getCafeEntity().getCafeName())
+        .shotCutUrl(themeEntity.getCafeEntity().getShotCutUrl())
         .build();
   }
 }
