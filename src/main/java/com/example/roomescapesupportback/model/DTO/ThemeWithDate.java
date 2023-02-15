@@ -15,7 +15,7 @@ import lombok.ToString;
 public class ThemeWithDate {
 
   private String cafeName;
-  private String shotCutUrl;
+  private String shortCutUrl;
   private Theme theme;
   private List<ThemeDate> themeDateList;
 
@@ -26,7 +26,7 @@ public class ThemeWithDate {
             .map(ThemeDateEntity::toDto)
             .toList())
         .cafeName(themeEntity.getCafeEntity().getCafeName())
-        .shotCutUrl(themeEntity.getCafeEntity().getShotCutUrl())
+        .shortCutUrl(themeEntity.getCafeEntity().getShortCutUrl())
         .build();
   }
 }

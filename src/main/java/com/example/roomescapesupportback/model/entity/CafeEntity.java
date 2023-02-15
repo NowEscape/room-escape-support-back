@@ -63,8 +63,8 @@ public class CafeEntity {
   @Column(name = "cafe_description")
   private String cafeDescription;
 
-  @Column(name = "shot_cut_url")
-  private String shotCutUrl;
+  @Column(name = "short_cut_url")
+  private String shortCutUrl;
 
 
   @Column(name = "cafe_image_url")
@@ -104,7 +104,7 @@ public class CafeEntity {
         .address(address)
         .phoneNumber(phoneNumber)
         .cafeDescription(cafeDescription)
-        .shotCutUrl(shotCutUrl)
+        .shortCutUrl(shortCutUrl)
         .build();
   }
 }

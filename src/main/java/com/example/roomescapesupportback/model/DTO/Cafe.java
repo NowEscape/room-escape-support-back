@@ -17,5 +17,5 @@ public class Cafe {
   private String phoneNumber;
   private String cafeImageUrl;
   private String cafeDescription;
-  private String shotCutUrl;
+  private String shortCutUrl;
 }
