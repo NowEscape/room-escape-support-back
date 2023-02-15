@@ -60,35 +60,35 @@ public class OpenTimeService {
                   filterOption.getRegion2())
               : cafeRepository.findThemeIdByRegion(filterOption.getRegion1());
 
-      if(CollectionUtils.isEmpty(themeIdListByRegion)){
-        return List.of();
-      }
-
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByRegion);
+
+      if(CollectionUtils.isEmpty(themeIdList)){
+        return List.of();
+      }
     }
 
     if (StringUtils.isNotBlank(filterOption.getGenreName())) {
       var themeIdListByGenre = genreRepository.findThemeIdListByGenre(filterOption.getGenreName());
 
-      if(CollectionUtils.isEmpty(themeIdListByGenre)){
-        return List.of();
-      }
-
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByGenre);
+
+      if(CollectionUtils.isEmpty(themeIdList)){
+        return List.of();
+      }
     }
 
     if (StringUtils.isNotBlank(filterOption.getSearchWord())) {
       var themeIdListBySearchWord = searchWordService.findThemeIdListBySearchWord(
           filterOption.getSearchWord());
 
-      if(CollectionUtils.isEmpty(themeIdListBySearchWord)){
-        return List.of();
-      }
-
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListBySearchWord);
+
+      if(CollectionUtils.isEmpty(themeIdList)){
+        return List.of();
+      }
     }
 
     if (ObjectUtils.isNotEmpty(filterOption.getThemeTime())) {
@@ -100,12 +100,12 @@ public class OpenTimeService {
               : LocalDateTime.now(),
           themeTimeLdt.withHour(23).withMinute(59).withSecond(59));
 
-      if(CollectionUtils.isEmpty(themeIdListByOpenTime)){
-        return List.of();
-      }
-
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByOpenTime);
+    }
+
+    if(CollectionUtils.isEmpty(themeIdList)){
+      return List.of();
     }
 
     return themeIdList.stream().toList();
