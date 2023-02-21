@@ -1,5 +1,6 @@
 package com.example.roomescapesupportback.repository;
 
+import com.example.roomescapesupportback.model.DTO.Region;
 import com.example.roomescapesupportback.model.entity.CafeEntity;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,7 +24,8 @@ public interface CafeRepository extends JpaRepository<CafeEntity, Integer> {
   public List<Integer> findThemeIdByRegion(String region1, String region2);
 
   @Query(value = "SELECT t.themeId FROM CafeEntity c JOIN c.themeEntityList t WHERE c.cafeName like :cafeName")
-
   public List<Integer> findThemeIdByCafeNameLike(String cafeName);
 
+  @Query(value = "SELECT distinct CafeEntity FROM CafeEntity c WHERE c.isClosed = false GROUP BY c.region1, c.region2")
+  public List<CafeEntity> findAllRegionByIsClosedIsFalse();
 }

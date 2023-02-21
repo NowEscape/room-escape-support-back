@@ -1,5 +1,6 @@
 package com.example.roomescapesupportback.service;
 
+import com.example.roomescapesupportback.model.DTO.Region;
 import com.example.roomescapesupportback.model.entity.CafeEntity;
 import com.example.roomescapesupportback.repository.CafeRepository;
 import java.util.List;
@@ -18,5 +19,12 @@ public class CafeService {
 
   public CafeEntity getCafe(int id) {
     return cafeRepository.findWithThemeAndTimeUsingJoinAndCafeIdEquals(id);
+  }
+  public List<Region> getRegionList() {
+    return cafeRepository.findAllRegionByIsClosedIsFalse().stream()
+        .map((cafeEntity -> Region.builder()
+            .region2(cafeEntity.getRegion2())
+            .region2(cafeEntity.getRegion2()).build())
+        ).toList();
   }
 }
