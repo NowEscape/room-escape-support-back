@@ -23,7 +23,7 @@ public class CafeService {
   public List<Region> getRegionList() {
     return cafeRepository.findAllRegionByIsClosedIsFalse().stream()
         .map((cafeEntity -> Region.builder()
-            .region2(cafeEntity.getRegion2())
+            .region1(cafeEntity.getRegion1())
             .region2(cafeEntity.getRegion2()).build())
         ).toList();
   }

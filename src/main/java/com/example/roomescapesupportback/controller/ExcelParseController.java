@@ -17,12 +17,25 @@ public class ExcelParseController {
   private final RoomEscapeExcelParseService roomEscapeExcelParseService;
 
   @PutMapping("/excel")
+  @Deprecated
   public ResponseEntity<Boolean> excelParse() {
 
     try {
       roomEscapeExcelParseService.doParserRoomEscape();
     } catch (Exception e) {
       log.error("excelParse error", e);
+      return ResponseEntity.internalServerError().build();
+    }
+
+    return ResponseEntity.ok(Boolean.TRUE);
+  }
+
+  @PutMapping("/set-meta-data")
+  public ResponseEntity<Boolean> setMetaData() {
+    try {
+      roomEscapeExcelParseService.setMetaData();
+    } catch (Exception e) {
+      log.error("setMetaData error", e);
       return ResponseEntity.internalServerError().build();
     }
 

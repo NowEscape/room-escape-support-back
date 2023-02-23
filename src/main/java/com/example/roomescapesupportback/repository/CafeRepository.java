@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CafeRepository extends JpaRepository<CafeEntity, Integer> {
 
+  public CafeEntity findByCafeNameEquals(String cafeName);
+
   @Query(value = "SELECT c FROM CafeEntity c LEFT JOIN FETCH c.cafeDomainEntity LEFT JOIN FETCH c.themeEntityList")
   public List<CafeEntity> findAllWithThemeUsingJoin();
 
@@ -26,6 +28,6 @@ public interface CafeRepository extends JpaRepository<CafeEntity, Integer> {
   @Query(value = "SELECT t.themeId FROM CafeEntity c JOIN c.themeEntityList t WHERE c.cafeName like :cafeName")
   public List<Integer> findThemeIdByCafeNameLike(String cafeName);
 
-  @Query(value = "SELECT distinct CafeEntity FROM CafeEntity c WHERE c.isClosed = false GROUP BY c.region1, c.region2")
+  @Query(value = "SELECT distinct c FROM CafeEntity c WHERE c.isClosed = false GROUP BY c.region1, c.region2")
   public List<CafeEntity> findAllRegionByIsClosedIsFalse();
 }

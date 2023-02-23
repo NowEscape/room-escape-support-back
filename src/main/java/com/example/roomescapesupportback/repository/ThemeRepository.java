@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
 
+  @Query(value = "SELECT t FROM ThemeEntity t WHERE t.themeName = :themeName AND t.cafeEntity.cafeId = :cafeId")
+  public ThemeEntity findByThemeNameEqualsAndCafeEntityCafeIdEquals(String themeName, int cafeId);
+
   @Query(value = "SELECT t FROM ThemeEntity t LEFT JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity")
   public List<ThemeEntity> findAllWithTimeUsingLeftJoin();
 
