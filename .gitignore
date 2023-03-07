@@ -33,3 +33,4 @@ build/
 .vscode/
 
 ### important files ###
+src/main/resources/application.properties
