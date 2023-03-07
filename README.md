@@ -23,7 +23,7 @@ ios : https://apps.apple.com/kr/app/%EC%A7%80%EA%B8%88-%EB%B0%A9%ED%83%88%EC%B6%
 <br/>
 
 ## project 설명
-- 방탈출 테마들에 대해 일정 주기마다 예약가능한 시간대를 스크래핑하여 db에 저장
+- 현재 예약 가능한 방탈출 테마들을 api를 통해 전달한다.
 
 
 
