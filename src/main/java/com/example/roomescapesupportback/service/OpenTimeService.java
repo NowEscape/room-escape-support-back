@@ -2,6 +2,7 @@ package com.example.roomescapesupportback.service;
 
 import com.example.roomescapesupportback.model.DTO.FilterOption;
 import com.example.roomescapesupportback.model.DTO.ThemeWithDate;
+import com.example.roomescapesupportback.model.SortOption;
 import com.example.roomescapesupportback.repository.CafeRepository;
 import com.example.roomescapesupportback.repository.GenreRepository;
 import com.example.roomescapesupportback.repository.ThemeDateRepository;
@@ -10,6 +11,7 @@ import com.example.roomescapesupportback.util.ListCustomUtil;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,22 +37,29 @@ public class OpenTimeService {
   public List<ThemeWithDate> getThemeOpenTimeListWithoutFilter() {
     var defaultFilterOption = new FilterOption();
 
-    var themeIdList = filterThemeIdList(defaultFilterOption);
-
-    return themeRepository.findAllWithTimeUsingJoin(themeIdList, defaultFilterOption.getThemeTime()).stream()
-        .map(ThemeWithDate::from).toList();
+    return getThemeOpenTimeListWithFilter(defaultFilterOption);
   }
 
   public List<ThemeWithDate> getThemeOpenTimeListWithFilter(FilterOption filterOption) {
 
-    var themeIdList = filterThemeIdList(filterOption);
+    var themeIdList = getThemeIdList(filterOption);
 
     var result = themeRepository.findAllWithTimeUsingJoin(themeIdList, filterOption.getThemeTime());
+
+    result.sort((o1, o2) -> {
+      var o1Index = themeIdList.indexOf(o1.getThemeId());
+      var o2Index = themeIdList.indexOf(o2.getThemeId());
+      return o1Index - o2Index;
+    });
 
     return result.stream().map(ThemeWithDate::from).toList();
   }
 
-  public List<Integer> filterThemeIdList(FilterOption filterOption) {
+  public List<Integer> getThemeIdList(FilterOption filterOption) {
+    return getThemeIdList(filterOption, new SortOption());
+  }
+
+  public List<Integer> getThemeIdList(FilterOption filterOption, SortOption sortOption) {
     var themeIdList = new ArrayList<Integer>();
 
     if (StringUtils.isNotBlank(filterOption.getRegion1())) {
@@ -63,7 +72,7 @@ public class OpenTimeService {
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByRegion);
 
-      if(CollectionUtils.isEmpty(themeIdList)){
+      if (CollectionUtils.isEmpty(themeIdList)) {
         return List.of();
       }
     }
@@ -74,7 +83,7 @@ public class OpenTimeService {
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListByGenre);
 
-      if(CollectionUtils.isEmpty(themeIdList)){
+      if (CollectionUtils.isEmpty(themeIdList)) {
         return List.of();
       }
     }
@@ -86,26 +95,34 @@ public class OpenTimeService {
       themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
           themeIdListBySearchWord);
 
-      if(CollectionUtils.isEmpty(themeIdList)){
+      if (CollectionUtils.isEmpty(themeIdList)) {
         return List.of();
       }
     }
 
-    if (ObjectUtils.isNotEmpty(filterOption.getThemeTime())) {
-      var themeTimeLdt = filterOption.getThemeTime();
-      var themeIdListByOpenTime = themeDateRepository.findThemeIdListByThemeTime(
-          LocalDateTime.now()
-              .isBefore(themeTimeLdt)
-              ? themeTimeLdt
-              : LocalDateTime.now(),
-          themeTimeLdt.withHour(23).withMinute(59).withSecond(59));
+    var themeTimeLdt = Objects.requireNonNull(filterOption.getThemeTime());
 
-      themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
-          themeIdListByOpenTime);
+    var themeIdListByOpenTime = themeRepository.findThemeIdListByThemeTime(
+        LocalDateTime.now()
+            .isBefore(themeTimeLdt)
+            ? themeTimeLdt
+            : LocalDateTime.now(),
+        themeTimeLdt.withHour(23).withMinute(59).withSecond(59));
+
+    themeIdList = (ArrayList<Integer>) ListCustomUtil.intersectionIgnoreEmptySource(themeIdList,
+        themeIdListByOpenTime);
+
+    if (CollectionUtils.isEmpty(themeIdList)) {
+      return List.of();
     }
 
-    if(CollectionUtils.isEmpty(themeIdList)){
-      return List.of();
+    if (sortOption.isSort()) {
+      //sort themeIdList by themeTime
+      themeIdList.sort((o1, o2) -> {
+        var o1ThemeTime = themeIdListByOpenTime.indexOf(o1);
+        var o2ThemeTime = themeIdListByOpenTime.indexOf(o2);
+        return o1ThemeTime - o2ThemeTime;
+      });
     }
 
     return themeIdList.stream().toList();
