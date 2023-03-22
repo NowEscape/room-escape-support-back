@@ -29,9 +29,9 @@ public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
   public List<ThemeEntity> findAllWithTimeUsingJoin();
 
   @Query(value = "SELECT distinct t FROM ThemeEntity t"
-      + " LEFT JOIN t.themeDateEntityList td on DATE_FORMAT(td.themeTime,'%y-%m-%d') = DATE_FORMAT(:themeTime,'%y-%m-%d')"
+      + " LEFT JOIN t.themeDateEntityList td on DATE_FORMAT(td.themeTime,'%y-%m-%d') = DATE_FORMAT(:themeTime,'%y-%m-%d') AND td.isOpen = true"
       + " LEFT JOIN FETCH t.genreEntity"
-      + " WHERE t.themeId IN :themeIdList AND t.isClosed = false AND td.isOpen = true"
+      + " WHERE t.themeId IN :themeIdList AND t.isClosed = false"
       + " ORDER BY td.themeTime ASC")
   public List<ThemeEntity> findAllWithTimeUsingJoin(List<Integer> themeIdList, LocalDateTime themeTime);
 
