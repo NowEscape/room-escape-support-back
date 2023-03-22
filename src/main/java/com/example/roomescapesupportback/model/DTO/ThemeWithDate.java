@@ -25,14 +25,12 @@ public class ThemeWithDate implements Serializable {
 
   public static ThemeWithDate from(ThemeEntity themeEntity) {
     if (CollectionUtils.isEmpty(themeEntity.getThemeDateEntityList())) {
-      log.info("themeDateEntityList is empty", themeEntity);
       return ThemeWithDate.builder()
           .theme(themeEntity.toDto())
           .cafeName(themeEntity.getCafeEntity().getCafeName())
           .shortCutUrl(themeEntity.getCafeEntity().getShortCutUrl())
           .build();
     }
-    log.info("themeDateEntityList is not empty", themeEntity);
     return ThemeWithDate.builder()
         .theme(themeEntity.toDto())
         .themeDateList(themeEntity.getThemeDateEntityList().stream().map(ThemeDateEntity::toDto)
