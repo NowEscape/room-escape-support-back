@@ -15,7 +15,7 @@ public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
 
   @Query(value = "SELECT t.theme_id FROM theme t"
       + " LEFT JOIN theme_date td ON t.theme_id = td.theme_id"
-      + " WHERE IF(td.theme_date_id is null,true, td.is_open)"
+      + " WHERE IF(td.theme_date_id is null,true, td.is_open AND td.theme_time >= :themeTimeStart AND td.theme_time <= :themeTimeEnd)"
       + " GROUP BY t.theme_id\n"
       + " ORDER BY IF(count(td.theme_date_id) = 0, 10000000, count(td.theme_date_id))", nativeQuery = true)
   public List<Integer> findThemeIdListByThemeTime(LocalDateTime themeTimeStart,
@@ -28,11 +28,11 @@ public interface ThemeRepository extends JpaRepository<ThemeEntity, Integer> {
   @Query(value = "SELECT distinct t FROM ThemeEntity t JOIN FETCH t.themeDateEntityList LEFT JOIN FETCH t.genreEntity")
   public List<ThemeEntity> findAllWithTimeUsingJoin();
 
-  @Query(value = "SELECT distinct t FROM ThemeEntity t"
-      + " LEFT JOIN t.themeDateEntityList td on DATE_FORMAT(td.themeTime,'%y-%m-%d') = DATE_FORMAT(:themeTime,'%y-%m-%d') AND td.isOpen = true"
-      + " LEFT JOIN FETCH t.genreEntity"
+  @Query(value = "SELECT t, td FROM ThemeEntity t"
+      + " LEFT JOIN FETCH t.themeDateEntityList td"
+      + " LEFT JOIN t.genreEntity"
       + " WHERE t.themeId IN :themeIdList AND t.isClosed = false"
-      + " ORDER BY td.themeTime ASC")
+      + " AND (td.themeDateId is null or (td.themeTime > :themeTime AND DATE_FORMAT(td.themeTime,'%y-%m-%d') = DATE_FORMAT(:themeTime,'%y-%m-%d') AND td.isOpen = true))")
   public List<ThemeEntity> findAllWithTimeUsingJoin(List<Integer> themeIdList, LocalDateTime themeTime);
 
 
